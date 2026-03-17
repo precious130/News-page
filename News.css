@@ -18,7 +18,7 @@ body{
 /* font-size: 12.8px; */
 margin: 0 10%;
 height: auto;
-background-color: var(Off-white);
+background-color: var(--Off-white);
 }
 
 /* Color Root Section*/
