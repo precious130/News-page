@@ -1,0 +1,309 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface-2: #22263a;
+  --border: #2e3250;
+  --text: #e8eaf6;
+  --text-muted: #7b82a8;
+  --accent: #5c6bc0;
+  --accent-hover: #7986cb;
+
+  --weak: #ef5350;
+  --fair: #ffa726;
+  --good: #66bb6a;
+  --strong: #26c6da;
+  --very-strong: #7c4dff;
+
+  --pass: #66bb6a;
+  --fail: #ef5350;
+  --warn: #ffa726;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem 4rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 620px;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+header h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+
+.subtitle {
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+  font-size: 0.95rem;
+}
+
+/* Input */
+.input-group {
+  margin-bottom: 1.2rem;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+}
+
+.input-wrapper input {
+  flex: 1;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 1.05rem;
+  font-family: 'Courier New', monospace;
+  padding: 0.75rem 3rem 0.75rem 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  letter-spacing: 1px;
+}
+
+.input-wrapper input:focus {
+  border-color: var(--accent);
+}
+
+.input-wrapper button {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.input-wrapper button:hover { color: var(--text); }
+.input-wrapper button svg { width: 18px; height: 18px; }
+
+/* Strength Meter */
+.strength-meter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.meter-bar {
+  flex: 1;
+  height: 7px;
+  background: var(--surface-2);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.meter-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 99px;
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+.strength-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  min-width: 80px;
+  text-align: right;
+}
+
+/* Score Card */
+.score-card {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.score-item {
+  background: var(--surface);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.score-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.score-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  font-family: 'Courier New', monospace;
+}
+
+/* Sections */
+.criteria-section,
+.warnings-section,
+.breach-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.criteria-section h2,
+.warnings-section h2,
+.breach-section h2 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+}
+
+/* Criteria List */
+.criteria-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.criteria-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.criteria-list li.pass { color: var(--pass); }
+.criteria-list li.fail { color: var(--fail); }
+
+.criteria-list li .icon::before { content: '○'; font-size: 0.8rem; }
+.criteria-list li.pass .icon::before { content: '✓'; }
+.criteria-list li.fail .icon::before { content: '✗'; }
+
+/* Warnings */
+.warnings-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.warnings-list li {
+  font-size: 0.9rem;
+  color: var(--warn);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.warnings-list li::before {
+  content: '⚠';
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Breach Section */
+.breach-info {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.breach-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.breach-btn:hover { background: var(--accent-hover); }
+.breach-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.breach-result {
+  margin-top: 0.9rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  min-height: 1.2rem;
+}
+
+.breach-result.safe { color: var(--pass); }
+.breach-result.pwned { color: var(--fail); }
+.breach-result.loading { color: var(--text-muted); }
+.breach-result.error { color: var(--warn); }
+
+/* Strength colors applied via JS */
+.strength-weak   { background: var(--weak);        color: var(--weak); }
+.strength-fair   { background: var(--fair);        color: var(--fair); }
+.strength-good   { background: var(--good);        color: var(--good); }
+.strength-strong { background: var(--strong);      color: var(--strong); }
+.strength-vstrong{ background: var(--very-strong); color: var(--very-strong); }
+
+footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .score-card { grid-template-columns: 1fr; }
+  header h1 { font-size: 1.5rem; }
+}
